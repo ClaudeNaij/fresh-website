@@ -323,6 +323,9 @@
       border-color: var(--pine); box-shadow: 0 0 0 3px rgba(47,74,58,0.12);
     }
     .field textarea { resize: vertical; min-height: 130px; }
+    .form-status { font-size: 0.92rem; line-height: 1.5; margin-top: 2px; min-height: 1.2em; }
+    .form-status.ok { color: var(--pine); font-weight: 600; }
+    .form-status.err { color: #c0392b; font-weight: 500; }
 
     /* ─────────── FOOTER ─────────── */
     footer { background: var(--pine-deep); color: rgba(255,255,255,0.6); padding: 80px 6% 40px; text-align: center; }
@@ -671,27 +674,32 @@
             <div><strong>Email</strong><span>operations@fresh-ng.com</span></div>
           </div>
         </div>
-        <form class="form-card reveal" onsubmit="handleSubmit(event)">
+        <form class="form-card reveal" id="contactForm" action="https://formsubmit.co/ajax/operations@fresh-ng.com" method="POST">
           <div class="field">
             <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="John Doe" required />
+            <input type="text" id="name" name="name" placeholder="John Doe" required />
           </div>
           <div class="field">
             <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@company.com" required />
+            <input type="email" id="email" name="email" placeholder="john@company.com" required />
           </div>
           <div class="field">
             <label for="company">Company / Organization</label>
-            <input type="text" id="company" placeholder="Your company name" />
+            <input type="text" id="company" name="company" placeholder="Your company name" />
           </div>
           <div class="field">
             <label for="message">Message</label>
-            <textarea id="message" placeholder="Tell us about your needs..."></textarea>
+            <textarea id="message" name="message" placeholder="Tell us about your needs..." required></textarea>
           </div>
+          <!-- FormSubmit settings -->
+          <input type="hidden" name="_subject" value="New enquiry from the fresh website" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button type="submit" class="btn btn-pine">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
             Supply Starts Here
           </button>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -720,13 +728,35 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // form submit
-    function handleSubmit(e) {
+    // contact form → FormSubmit (AJAX, stays on page)
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn.innerHTML;
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = e.target.querySelector('button');
-      btn.innerHTML = "Sent — we'll be in touch soon.";
-      btn.disabled = true;
-    }
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending…';
+      formStatus.textContent = '';
+      formStatus.className = 'form-status';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        if (!res.ok) throw new Error('Request failed');
+        form.reset();
+        submitBtn.innerHTML = 'Message sent ✓';
+        formStatus.textContent = "Thanks — your message is on its way. We'll be in touch soon.";
+        formStatus.classList.add('ok');
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = submitLabel;
+        formStatus.textContent = 'Something went wrong — please email operations@fresh-ng.com directly.';
+        formStatus.classList.add('err');
+      }
+    });
 
     // mobile nav
     const burger = document.querySelector('.hamburger');
