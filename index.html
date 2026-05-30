@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fresh — Precision-Grown. Always Fresh.</title>
+  <meta name="description" content="Nigeria's most advanced hydroponic farm, delivering premium leafy greens grown with cutting-edge technology and an unwavering commitment to quality." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pine:       #2f4a3a;   /* primary dark forest green */
+      --pine-deep:  #243a2e;   /* deeper green (quote, footer, dark section) */
+      --sage:       #cdd9c8;   /* sage accent */
+      --sage-soft:  #dde6d8;   /* soft sage (pills, stat boxes) */
+      --sage-icon:  #dfe5db;   /* icon square bg */
+      --cream:      #eef1ec;   /* light section background */
+      --ink:        #1a2620;   /* near-black heading text */
+      --muted:      #62726a;   /* muted body text */
+      --line:       #e1e6df;   /* hairline borders */
+      --white:      #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wordmark {
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--pine);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 72px;
+    }
+    .nav-logo {
+      color: var(--white); font-size: 1.6rem; text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.82); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; transition: color 0.2s; white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links .nav-pill {
+      background: var(--white); color: var(--pine) !important;
+      padding: 9px 20px; border-radius: 100px; font-weight: 600;
+    }
+    .nav-links .nav-pill:hover { background: var(--sage); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 26px; height: 2.5px; background: var(--white); border-radius: 2px; }
+
+    /* ─────────── HERO ─────────── */
+    #home {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 120px 6% 90px;
+      position: relative; overflow: hidden;
+      background-color: #243a2e;
+      background-image:
+        linear-gradient(180deg, rgba(26,42,33,0.74) 0%, rgba(26,42,33,0.82) 55%, rgba(26,42,33,0.88) 100%),
+        url('hero.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero-inner .wordmark {
+      color: var(--white);
+      font-size: clamp(3.2rem, 11vw, 6rem);
+      line-height: 1; margin-bottom: 28px;
+    }
+    .hero-tagline {
+      color: var(--white); font-size: clamp(1.25rem, 3vw, 1.7rem);
+      font-weight: 600; margin-bottom: 22px; letter-spacing: -0.2px;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.78); font-size: 1.05rem;
+      max-width: 580px; margin: 0 auto 42px; line-height: 1.75;
+    }
+    .hero-actions { display: flex; flex-direction: column; gap: 16px; max-width: 440px; margin: 0 auto; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 17px 32px; border-radius: 100px;
+      font-size: 1rem; font-weight: 600; text-decoration: none;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: transform 0.15s, background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn svg { width: 18px; height: 18px; }
+    .btn-white { background: var(--white); color: var(--pine); }
+    .btn-white:hover { background: var(--sage); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.5); }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .btn-pine { background: var(--pine); color: var(--white); }
+    .btn-pine:hover { background: var(--pine-deep); transform: translateY(-2px); }
+
+    /* ─────────── SECTION SHELL ─────────── */
+    section { padding: 96px 6%; }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    .center { text-align: center; }
+
+    .eyebrow {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 3px; color: var(--muted); margin-bottom: 18px;
+    }
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: var(--ink);
+    }
+    .underline {
+      width: 56px; height: 3px; border-radius: 3px; margin: 22px 0 0;
+      background: linear-gradient(90deg, var(--pine), #8fc79a);
+    }
+    .center .underline { margin-left: auto; margin-right: auto; }
+    .lead {
+      font-size: 1.15rem; color: var(--muted); line-height: 1.8;
+      max-width: 640px; margin: 32px auto 0;
+    }
+
+    /* ─────────── WHAT IS FRESH ─────────── */
+    #about { background: var(--cream); }
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--white); border-radius: 20px; padding: 38px 32px;
+      box-shadow: 0 4px 24px rgba(36,58,46,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(36,58,46,0.1); }
+    .icon-sq {
+      width: 58px; height: 58px; border-radius: 15px; background: var(--sage-icon);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 26px;
+    }
+    .icon-sq svg { width: 26px; height: 26px; color: var(--pine); }
+    .feature-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 14px; }
+    .feature-card p { color: var(--muted); font-size: 0.98rem; line-height: 1.7; }
+
+    /* ─────────── MISSION QUOTE ─────────── */
+    #mission { background: var(--cream); padding-top: 0; }
+    .quote-box {
+      background: var(--pine-deep); color: var(--white);
+      border-radius: 26px; padding: 70px 56px; text-align: center;
+      max-width: 920px; margin: 0 auto;
+    }
+    .quote-box p {
+      font-size: clamp(1.4rem, 3.4vw, 2rem); font-weight: 500;
+      line-height: 1.5; letter-spacing: -0.3px;
+    }
+
+    /* ─────────── TECHNOLOGY ─────────── */
+    #technology { background: var(--white); }
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; max-width: 720px; margin: 56px auto 0;
+    }
+    .stat-box {
+      background: var(--sage-soft); border-radius: 18px;
+      padding: 34px 20px; text-align: center;
+    }
+    .stat-box .n { font-size: 2.6rem; font-weight: 800; color: var(--pine); letter-spacing: -1.5px; line-height: 1; }
+    .stat-box .l { font-size: 0.95rem; color: var(--muted); margin-top: 8px; font-weight: 500; }
+
+    .tech-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 64px;
+    }
+    .tech-card {
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: 20px; padding: 32px;
+      display: flex; gap: 22px; align-items: flex-start;
+      box-shadow: 0 4px 20px rgba(36,58,46,0.04);
+    }
+    .tech-card .icon-sq { margin-bottom: 0; flex-shrink: 0; background: var(--sage-soft); }
+    .tech-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
+    .tech-card p { color: var(--muted); font-size: 0.96rem; line-height: 1.7; }
+
+    /* ─────────── PRODUCTS ─────────── */
+    #products { background: var(--cream); }
+    .greens-card {
+      background: var(--white); border-radius: 26px;
+      padding: 54px 40px; margin-top: 56px;
+      box-shadow: 0 8px 36px rgba(36,58,46,0.06);
+    }
+    .greens-title {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      font-size: 1.7rem; font-weight: 800; margin-bottom: 40px;
+    }
+    .greens-title svg { width: 30px; height: 30px; color: var(--pine); }
+    .pills { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; max-width: 720px; margin: 0 auto; }
+    .pill {
+      background: var(--sage-soft); color: var(--ink);
+      padding: 14px 30px; border-radius: 100px;
+      font-size: 1.05rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .pill:hover { background: var(--sage); transform: translateY(-2px); }
+    .greens-foot { text-align: center; color: var(--muted); font-size: 1.1rem; margin-top: 36px; }
+
+    /* ─────────── WHY HYDROPONICS (comparison) ─────────── */
+    #why { background: var(--white); }
+    .cmp { max-width: 760px; margin: 64px auto 0; }
+    .cmp-head {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 16px; padding: 0 28px 18px; align-items: end;
+    }
+    .cmp-head span { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+    .cmp-head .t1 { color: var(--muted); text-align: center; }
+    .cmp-head .t2 { color: var(--ink); text-align: center; }
+    .cmp-row {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px;
+      align-items: center; background: var(--white);
+      border: 1px solid var(--line); border-radius: 16px;
+      padding: 22px 28px; margin-bottom: 14px;
+      box-shadow: 0 3px 14px rgba(36,58,46,0.04);
+    }
+    .cmp-row .label { font-weight: 700; font-size: 1.05rem; }
+    .cmp-cell { display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 1rem; }
+    .cmp-cell.no  { color: var(--muted); }
+    .cmp-cell.yes { color: var(--ink); font-weight: 600; }
+    .cmp-cell svg { width: 19px; height: 19px; flex-shrink: 0; }
+    .cmp-cell.no svg  { color: #d05a4e; }
+    .cmp-cell.yes svg { color: var(--pine); }
+    .cmp-cta { text-align: center; margin-top: 46px; }
+    .cmp-cta p { font-size: 1.4rem; color: var(--muted); margin-bottom: 24px; font-weight: 500; }
+
+    /* ─────────── QUALITY (dark) ─────────── */
+    #quality { background: var(--pine-deep); color: var(--white); }
+    #quality .eyebrow { color: var(--sage); }
+    #quality h2 { color: var(--white); }
+    #quality .lead { color: rgba(255,255,255,0.72); }
+    .qual-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 40px; margin-top: 70px;
+    }
+    .qual-item { text-align: center; }
+    .qual-circle {
+      width: 84px; height: 84px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;
+    }
+    .qual-circle svg { width: 34px; height: 34px; color: var(--white); }
+    .qual-item h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+    .qual-item p { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.7; }
+
+    /* ─────────── WHO WE SUPPLY ─────────── */
+    #supply { background: var(--cream); }
+    .supply-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+    .supply-card {
+      background: var(--white); border-radius: 22px;
+      padding: 46px 28px; text-align: center;
+      box-shadow: 0 4px 22px rgba(36,58,46,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .supply-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(36,58,46,0.1); }
+    .supply-card .icon-sq { margin: 0 auto 22px; width: 64px; height: 64px; background: var(--sage-soft); border-radius: 17px; }
+    .supply-card .icon-sq svg { width: 28px; height: 28px; }
+    .supply-card h3 { font-size: 1.3rem; font-weight: 700; }
+
+    /* ─────────── SUSTAINABILITY ─────────── */
+    #impact { background: var(--white); }
+    .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 56px; }
+    .impact-text p { color: var(--muted); font-size: 1.05rem; line-height: 1.85; margin-top: 22px; }
+    .impact-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .impact-card {
+      background: var(--cream); border-radius: 20px; padding: 30px 26px;
+    }
+    .impact-card .icon-sq { width: 50px; height: 50px; border-radius: 13px; margin-bottom: 22px; background: var(--sage-icon); }
+    .impact-card .icon-sq svg { width: 22px; height: 22px; }
+    .impact-card .n { font-size: 2rem; font-weight: 800; color: var(--pine); letter-spacing: -1px; line-height: 1; }
+    .impact-card h4 { font-size: 1.15rem; font-weight: 700; margin: 4px 0 12px; }
+    .impact-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+    /* ─────────── CONTACT ─────────── */
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; margin-top: 56px; align-items: start; }
+    .contact-detail { display: flex; gap: 18px; align-items: center; margin-bottom: 26px; }
+    .contact-detail .icon-sq { width: 52px; height: 52px; border-radius: 14px; margin: 0; background: var(--sage-icon); }
+    .contact-detail .icon-sq svg { width: 22px; height: 22px; }
+    .contact-detail strong { display: block; font-size: 1.05rem; font-weight: 700; }
+    .contact-detail span { color: var(--muted); font-size: 0.98rem; }
+
+    .form-card {
+      background: var(--white); border-radius: 24px; padding: 44px 40px;
+      box-shadow: 0 8px 36px rgba(36,58,46,0.07);
+      display: flex; flex-direction: column; gap: 22px;
+    }
+    .field { display: flex; flex-direction: column; gap: 9px; }
+    .field label { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .field input, .field textarea {
+      padding: 15px 18px; border: 1.5px solid var(--line); border-radius: 13px;
+      font-size: 1rem; font-family: inherit; color: var(--ink);
+      background: var(--white); outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #9aa89f; }
+    .field input:focus, .field textarea:focus {
+      border-color: var(--pine); box-shadow: 0 0 0 3px rgba(47,74,58,0.12);
+    }
+    .field textarea { resize: vertical; min-height: 130px; }
+
+    /* ─────────── FOOTER ─────────── */
+    footer { background: var(--pine-deep); color: rgba(255,255,255,0.6); padding: 80px 6% 40px; text-align: center; }
+    footer .wordmark { color: var(--white); font-size: 2.6rem; display: inline-block; margin-bottom: 18px; }
+    .footer-by { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 24px; }
+    .footer-desc { color: rgba(255,255,255,0.72); font-size: 1.15rem; max-width: 520px; margin: 0 auto 48px; line-height: 1.7; }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-bottom: 50px; }
+    .footer-nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 1rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--white); }
+    .footer-line { height: 1px; background: rgba(255,255,255,0.12); max-width: 1080px; margin: 0 auto 32px; }
+    .footer-copy { font-size: 0.9rem; color: rgba(255,255,255,0.45); }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 980px) {
+      .feature-grid, .supply-grid { grid-template-columns: 1fr; }
+      .tech-grid, .impact-grid, .contact-grid, .impact-cards { grid-template-columns: 1fr; }
+      .qual-grid { grid-template-columns: 1fr 1fr; gap: 48px 24px; }
+      .impact-grid { gap: 40px; }
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 72px 7%; }
+      .stat-row { grid-template-columns: 1fr; max-width: 340px; }
+      .qual-grid { grid-template-columns: 1fr; }
+      .quote-box { padding: 48px 30px; }
+      .greens-card, .form-card { padding: 36px 24px; }
+      .cmp-head, .cmp-row { padding-left: 18px; padding-right: 18px; }
+      .cmp-cell { font-size: 0.9rem; }
+    }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo wordmark">fresh</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#why">Why Hydroponics</a></li>
+      <li><a href="#contact" class="nav-pill">Work with us</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home">
+    <div class="hero-inner">
+      <div class="wordmark">fresh</div>
+      <p class="hero-tagline">Precision-Grown. Always Fresh.</p>
+      <p class="hero-desc">Nigeria's most advanced hydroponic farm, delivering premium leafy greens grown with cutting-edge technology and an unwavering commitment to quality.</p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-white">Discover fresh</a>
+        <a href="#contact" class="btn btn-ghost">Work with us</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHAT IS FRESH -->
+  <section id="about">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">What is fresh</div>
+        <h2>Redefining Fresh Produce</h2>
+        <div class="underline"></div>
+        <p class="lead">fresh is Nigeria's pioneering hydroponic farm, combining advanced agricultural technology with uncompromising quality standards to deliver the freshest, safest, and most consistent leafy greens in the country.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+          <h3>Precision Agriculture</h3>
+          <p>Every plant is monitored and nurtured with scientific precision, ensuring optimal growth and nutrition.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <h3>Consistent Quality</h3>
+          <p>Year-round production in controlled environments means you get the same exceptional quality every time.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/></svg></div>
+          <h3>Food Safety First</h3>
+          <p>Pesticide-free, soil-free growing with rigorous hygiene protocols from seed to delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION QUOTE -->
+  <section id="mission">
+    <div class="quote-box reveal">
+      <p>"Our mission is simple: to transform how Nigeria experiences fresh produce — through technology, precision, and an unwavering commitment to excellence."</p>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGY -->
+  <section id="technology">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">The Technology</div>
+        <h2>Science Meets Agriculture</h2>
+        <div class="underline"></div>
+        <p class="lead">Our state-of-the-art hydroponic systems represent the cutting edge of controlled environment agriculture, rivaling the best farms in Europe and North America.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-box reveal"><div class="n">90%</div><div class="l">Less Water</div></div>
+        <div class="stat-box reveal"><div class="n">0</div><div class="l">Pesticides</div></div>
+        <div class="stat-box reveal"><div class="n">365</div><div class="l">Days/Year</div></div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="tech-grid">
+        <div class="tech-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></div>
+          <div><h3>Smart Growing Systems</h3><p>Intelligent automation ensures every plant gets exactly what it needs — the right light, nutrients, and care at the right time.</p></div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5S5 13 5 15a7 7 0 0 0 7 7Z"/></svg></div>
+          <div><h3>Water-Smart Design</h3><p>Recirculating systems use up to 90% less water than traditional farming, making every drop count.</p></div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg></div>
+          <div><h3>Controlled Environments</h3><p>Consistent, optimal conditions year-round — independent of weather, season, or external factors.</p></div>
+        </div>
+        <div class="tech-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+          <div><h3>Clean &amp; Chemical-Free</h3><p>Protected growing spaces eliminate the need for pesticides, delivering produce that's pure from seed to plate.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">What We Grow</div>
+        <h2>Premium Leafy Greens</h2>
+        <div class="underline"></div>
+        <p class="lead">Every leaf is grown with precision, harvested at peak freshness, and delivered with care. This is produce as it should be.</p>
+      </div>
+      <div class="greens-card reveal">
+        <div class="greens-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+          Our Leafy Greens
+        </div>
+        <div class="pills">
+          <span class="pill">Iceberg Lettuce</span>
+          <span class="pill">Romaine Lettuce</span>
+          <span class="pill">Leaf Lettuce</span>
+          <span class="pill">Lollo Rosso</span>
+          <span class="pill">Lollo Bionda</span>
+          <span class="pill">Fresh Basil</span>
+          <span class="pill">Curly Kale</span>
+          <span class="pill">Arugula</span>
+          <span class="pill">Coriander</span>
+          <span class="pill">Swiss Chard</span>
+        </div>
+        <p class="greens-foot">And other premium leafy greens grown to perfection.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY HYDROPONICS -->
+  <section id="why">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">Why Hydroponics</div>
+        <h2>The Future of Farming</h2>
+        <div class="underline"></div>
+        <p class="lead">Hydroponics isn't just different — it's better. Here's how fresh compares to traditional farming methods.</p>
+      </div>
+    </div>
+    <div class="cmp reveal">
+      <div class="cmp-head">
+        <span></span>
+        <span class="t1">Traditional</span>
+        <span class="t2">Hydroponics</span>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Water Usage</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>High use</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>90% less</div>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Pesticides</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Frequent</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>None</div>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Production</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Seasonal</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Year-round</div>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Quality Control</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Variable</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consistent</div>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Land Required</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Large area</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>10x less</div>
+      </div>
+      <div class="cmp-row">
+        <div class="label">Food Safety</div>
+        <div class="cmp-cell no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Soil-borne risk</div>
+        <div class="cmp-cell yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Soil-free</div>
+      </div>
+      <div class="cmp-cta">
+        <p>Ready to experience the difference?</p>
+        <a href="#contact" class="btn btn-pine">Partner with fresh</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALITY (dark) -->
+  <section id="quality">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">Quality &amp; Standards</div>
+        <h2>Excellence, Guaranteed</h2>
+        <div class="underline"></div>
+        <p class="lead">When you choose fresh, you're choosing uncompromising quality. Every leaf tells a story of precision and care.</p>
+      </div>
+      <div class="qual-grid">
+        <div class="qual-item reveal">
+          <div class="qual-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/></svg></div>
+          <h3>Food Safety</h3>
+          <p>Rigorous protocols from seed to delivery ensure every product meets the highest safety standards.</p>
+        </div>
+        <div class="qual-item reveal">
+          <div class="qual-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
+          <h3>Hygiene Standards</h3>
+          <p>Clean room environments and strict sanitation practices throughout our facility.</p>
+        </div>
+        <div class="qual-item reveal">
+          <div class="qual-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <h3>Quality Control</h3>
+          <p>Every batch is inspected and documented, ensuring consistent excellence.</p>
+        </div>
+        <div class="qual-item reveal">
+          <div class="qual-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Reliable Supply</h3>
+          <p>Year-round production means consistent availability for all our partners.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE SUPPLY -->
+  <section id="supply">
+    <div class="wrap center">
+      <div class="reveal">
+        <div class="eyebrow">Who We Supply</div>
+        <h2>Partners in Freshness</h2>
+        <div class="underline"></div>
+        <p class="lead">From five-star kitchens to neighborhood grocers, fresh serves partners who share our passion for exceptional produce.</p>
+      </div>
+      <div class="supply-grid">
+        <div class="supply-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div>
+          <h3>Restaurants</h3>
+        </div>
+        <div class="supply-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></div>
+          <h3>Hotels</h3>
+        </div>
+        <div class="supply-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <h3>Retailers</h3>
+        </div>
+        <div class="supply-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+          <h3>Distributors</h3>
+        </div>
+        <div class="supply-card reveal">
+          <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Bulk Buyers</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY -->
+  <section id="impact">
+    <div class="wrap">
+      <div class="impact-grid">
+        <div class="impact-text reveal">
+          <div class="eyebrow">Sustainability &amp; Impact</div>
+          <h2>Growing a Better Future</h2>
+          <div class="underline"></div>
+          <p>fresh isn't just about today's harvest — it's about building a sustainable food system for tomorrow. Our approach to agriculture is designed to minimize environmental impact while maximizing output.</p>
+          <p>By growing locally in controlled environments, we're reducing Nigeria's dependence on imported produce, lowering food miles, and proving that world-class agriculture is possible right here at home.</p>
+        </div>
+        <div class="impact-cards">
+          <div class="impact-card reveal">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5S5 13 5 15a7 7 0 0 0 7 7Z"/></svg></div>
+            <div class="n">90%</div><h4>Less Water</h4>
+            <p>Our recirculating systems dramatically reduce water consumption.</p>
+          </div>
+          <div class="impact-card reveal">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="n">Local</div><h4>Production</h4>
+            <p>Grown in Nigeria, for Nigeria — reducing food miles and emissions.</p>
+          </div>
+          <div class="impact-card reveal">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+            <div class="n">Zero</div><h4>Pesticides</h4>
+            <p>Clean growing environments eliminate the need for chemicals.</p>
+          </div>
+          <div class="impact-card reveal">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></div>
+            <div class="n">10x</div><h4>Land Efficiency</h4>
+            <p>Vertical growing maximizes output per square meter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="center reveal">
+        <div class="eyebrow">Get In Touch</div>
+        <h2>Let's Grow Together</h2>
+        <div class="underline"></div>
+        <p class="lead">Ready to experience the fresh difference? Whether you're a restaurant, retailer, or distributor, we'd love to explore how we can work together.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="contact-detail">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><strong>Location</strong><span>Nigeria</span></div>
+          </div>
+          <div class="contact-detail">
+            <div class="icon-sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+            <div><strong>Email</strong><span>operations@fresh-ng.com</span></div>
+          </div>
+        </div>
+        <form class="form-card reveal" onsubmit="handleSubmit(event)">
+          <div class="field">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Doe" required />
+          </div>
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@company.com" required />
+          </div>
+          <div class="field">
+            <label for="company">Company / Organization</label>
+            <input type="text" id="company" placeholder="Your company name" />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell us about your needs..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-pine">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+            Supply Starts Here
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#home" class="wordmark">fresh</a>
+    <p class="footer-by">by Fresh Agro Industries Nigeria Limited</p>
+    <p class="footer-desc">Precision-grown premium leafy greens for Nigeria's finest establishments.</p>
+    <div class="footer-nav">
+      <a href="#about">About</a>
+      <a href="#technology">Technology</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why Hydroponics</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-line"></div>
+    <p class="footer-copy">&copy; 2026 Fresh Agro Industries Nigeria Limited. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.innerHTML = "Sent — we'll be in touch soon.";
+      btn.disabled = true;
+    }
+
+    // mobile nav
+    const burger = document.querySelector('.hamburger');
+    const links = document.querySelector('.nav-links');
+    burger.addEventListener('click', () => {
+      const open = links.style.display === 'flex';
+      links.style.cssText = open ? '' :
+        'display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:#2f4a3a;padding:24px 6%;gap:18px;align-items:flex-start;z-index:99;';
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth <= 900) links.style.cssText = '';
+    }));
+  </script>
+</body>
+</html>
